@@ -1,8 +1,10 @@
-import "./ValueCellInput.css"; // eslint-disable-line @typescript-eslint/no-import-type-side-effects
+/** @jsxImportSource @emotion/react */
+
 import * as React from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { type FocusableElement, tabbable } from "tabbable";
 import type { Value } from "../Computer/Value";
+import { css } from "@emotion/react";
 import { nonNull } from "../Functional/Nullability";
 
 export interface ValueCellInputHandle {
@@ -71,6 +73,25 @@ interface ValueCellInputTemplateParams<T> {
   renderValue: (value: T) => string;
   parseInput: (inputStr: string) => T;
 }
+
+const valueCellInputCss = {
+  input: css`
+    background-color: var(--vscode-editorWidget-background);
+    color: var(--vscode-editorWidget-foreground);
+    border: 1px solid var(--vscode-editorWidget-border);
+    font-size: 140%;
+    font-family: monospace;
+    font-weight: bold;
+    width: 80px;
+    height: 32px;
+    padding-right: 12px;
+    text-align: right;
+    &:focus {
+      outline-width: 0;
+      background-color: var(--vscode-inputOption-activeBackground);
+    }
+  `,
+};
 
 function ValueCellInputTemplate<T>(
   params: ValueCellInputTemplateParams<T>
@@ -201,9 +222,10 @@ function ValueCellInputTemplate<T>(
       );
 
       return (
-        <form className="ValueCellInput" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             ref={inputRef}
+            css={valueCellInputCss.input}
             value={inputStr}
             onChange={handleChange}
             onFocus={handleFocus}

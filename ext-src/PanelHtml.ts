@@ -36,7 +36,7 @@ export function renderPageHtml(
   // have a specific nonce.
   const contentSecurityPolicy = [
     `default-src 'none'`,
-    `style-src ${cspSource} 'nonce-${nonce}'`,
+    `style-src ${cspSource} 'unsafe-inline'`, // TODO Figure out how make emotion work with the nonce.
     `img-src ${cspSource} https: data:`,
     `script-src 'nonce-${nonce}'`,
   ]
